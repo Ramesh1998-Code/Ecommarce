@@ -1,0 +1,13 @@
+import { createStore,applyMiddleware  } from "redux";
+import rootred from "./redux/reducers/main";
+import { thunk } from "redux-thunk";
+
+import { productReducer } from "./redux/reducers/productReducer";
+const storeWithProducts = createStore(
+    rootred,
+    { products: productReducer },
+    thunk
+);
+
+
+export const store = createStore(rootred, applyMiddleware(thunk));

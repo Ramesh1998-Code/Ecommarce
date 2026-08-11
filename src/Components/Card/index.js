@@ -13,7 +13,7 @@ import { BarcodeGeneratorComponent } from '@syncfusion/ej2-react-barcode-generat
 import Barcode from "react-barcode";
 import Loader from "react-js-loader";
 import ReactPaginate from "react-paginate";
-function Cards() {
+function Cards({ product = [] }) {
   const notify = () => toast("Product added to cart!", {
     theme: "dark",
   });
@@ -28,17 +28,22 @@ function Cards() {
 
   
   const productss = useSelector(
-    (state) => state.product?.products
+    (state) => state.product?.products || []
   );
 
+  const productsToShow = product?.length ? product : productss;
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 8;
   const endOffset = itemOffset + itemsPerPage;
-  const currentItems = productss.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(productss.length / itemsPerPage);
+  const currentItems = productsToShow.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(productsToShow.length / itemsPerPage);
+
+  useEffect(() => {
+    setItemOffset(0);
+  }, [productsToShow]);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % productss.length;
+    const newOffset = (event.selected * itemsPerPage) % productsToShow.length;
     setItemOffset(newOffset);
   }
 

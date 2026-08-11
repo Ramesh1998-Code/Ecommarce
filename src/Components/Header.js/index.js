@@ -11,6 +11,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 import { DLT } from '../../redux/action/action';
 import TopHeader from '../TopHeader/index.js';
+import AuthButtons from '../Auth/AuthButtons.jsx';
+import { useAuth0 } from "@auth0/auth0-react";
+import Login from '../Login/index.js';
 function Header() {
     const getdata = useSelector((state)=> state.cartreducer.carts);
     const[price,setPrice] = useState(0)
@@ -55,16 +58,15 @@ function Header() {
     total();
   },[total])
 
-  const logout = () => {
-    localStorage.removeItem("access_token");
-    handleUserClose();
-  }
+
   const loginuser =  localStorage.getItem("access_token");
 
-  
+  const { loginWithRedirect, logout, isAuthenticated, isLoading, user, error } = useAuth0();
+
+ 
 
   return (
-    <div>
+    <div> 
       <TopHeader />
           <Navbar style={{height:"60px"}} bg="dark" data-bs-theme="dark">
         <Container>
@@ -75,7 +77,10 @@ function Header() {
           <Nav className="me-auto gap-2">
             <NavLink to="/category" className="text-decoration-none text-light ">Category</NavLink>
              <NavLink to="/vendor" className="text-decoration-none text-light">Vendor</NavLink>
+             
           </Nav>
+         
+
           
             <div className='d-flex gap-3'>
                <Badge badgeContent={getdata.length} color="success">
@@ -94,6 +99,7 @@ function Header() {
                 aria-haspopup="true"
                 aria-expanded={openUser ? 'true' : undefined}
                 onClick={handleUserClick} className="fa-solid fa-user text-light" style={{fontSize: 25,cursor:"pointer"}}></i>
+                
             </div>
 
            <Menu
@@ -103,11 +109,22 @@ function Header() {
               onClose={handleUserClose}
             >
                <i  onClick={handleClose} className='fas fa-close smallclose mb-2'></i>
-              <MenuItem className='mt-2' component={Link} to="/myaccount" >My Account</MenuItem>
+               {isAuthenticated &&  <MenuItem className='mt-2' component={Link} to="/myaccount" >My Account</MenuItem> }
+             
+
+
+              {!isAuthenticated &&  <MenuItem onClick={() =>
+                                loginWithRedirect({
+                                    authorizationParams: {
+                                        screen_hint: "signup",
+                                    },
+                                })
+                      } className='' component={Link} to="/" >Register</MenuItem>}
              
               {
-                loginuser ? <MenuItem onClick={logout} >Logout</MenuItem> : <MenuItem onClick={handleClose} component={Link} to="/login">Login</MenuItem>
+                isAuthenticated ? <MenuItem onClick={logout} >Logout</MenuItem> : <MenuItem onClick={handleClose}  onClick={() => loginWithRedirect()} component={Link} to="/">Login</MenuItem>
               }
+
             </Menu>
 
           <Menu

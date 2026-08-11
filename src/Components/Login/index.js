@@ -1,37 +1,38 @@
-import React, { use, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import google from "../image/google.png";
 import apple from "../image/apple.png";
 import { useNavigate } from 'react-router-dom';
+import { signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
+import { auth, googleProvider } from '.././../Firebase/firebase';
+
 function Login() {
      const navigate = useNavigate() 
     const [input,setInput] = useState({username:'',password:''})
+     const [user, setUser] = useState(null);
 
-   const handleLogin = async (e) => {
-  e.preventDefault();
-  
-  try {
-    const res = await fetch("https://dummyjson.com/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        username: input.username,
-        password: input.password,
-        expiresInMins: 1
-      })
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
     });
+    return () => unsubscribe(); 
+  }, []); 
+  
+  const handleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      setUser(result.user);
+     navigate('/');
+    } catch (error) {
+      console.error("Login failed:", error.message);
+    }
+  };
+  
 
-    const data = await res.json();
-    localStorage.setItem("access_token", data.accessToken);
-    console.log("data>>>>",data);
-    
-    navigate("/");
-  } catch (err) {
-    console.log("login error:", err);
-  }
-};
-
+  const handleLogout = async () => {
+    await signOut(auth);
+    setUser(null);
+  };
 
   return (
     <div className='login-wrap'>
@@ -42,7 +43,7 @@ function Login() {
       <div class="login_option">
        
         <div class="option">
-          <a href="#">
+          <a onClick={handleLogin} href="#">
             <img src={google} alt="Google" />
             <span>Google</span>
           </a>

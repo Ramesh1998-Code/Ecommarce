@@ -1,13 +1,18 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState } from 'react'
  import { ToastContainer, toast } from 'react-toastify';
 function MyAccount() {
-const [user,setUser] = useState({
-    firstName:"jhon",
-    lastName:"doe",
-    email:"johndoe@example.com",
-    phone:"+1 234 567 890",
-    address:"123 Main Street, City, Country"
-})
+    
+// const [user,setUser] = useState({
+//     firstName:"jhon",
+//     lastName:"doe",
+//     email:"johndoe@example.com",
+//     phone:"+1 234 567 890",
+//     address:"123 Main Street, City, Country"
+// })
+const { loginWithRedirect, logout, isAuthenticated, isLoading, user, error } = useAuth0();
+console.log("user>>>>",user);
+
      const [isEditing,setIsEditing] = useState(false);
      const notify = () => toast("Profile update Successfully", {
            theme: "dark",
@@ -27,13 +32,12 @@ const [user,setUser] = useState({
  const handleOnchange = (e)=> {
     if(!isEditing) return;
     const { name,value} = e.target;
-    setUser(prev=>({
-        ...prev,
-        [name]:value
-    }))
+    // user(prev=>({
+    //     ...prev,
+    //     [name]:value
+    // }))
  }
 
-  console.log("user",user);
   
 
   return (
@@ -42,10 +46,10 @@ const [user,setUser] = useState({
         <h2 className='text-center'>My Account</h2>
         <div class="account-container">
     <div class="account-header">
-        <img src="https://via.placeholder.com/101" alt="Profile Picture" />
+        <img  src={user?.picture} alt="Profile Picture" />
         
-        <h2>{user.firstName} {user.lastName}</h2>
-        <p className='text-white'>{user.email}</p>
+        <h2>{user?.firstName} {user?.lastName}</h2>
+        <p className='text-white'>{user?.email}</p>
     </div>
     <div class="account-body">
         <div class="account-section">
@@ -54,19 +58,19 @@ const [user,setUser] = useState({
                 <div>
                     <label>Full Name</label>
                    
-                   <input type="text" value={user.firstName || ''} name='firstName' onChange={(e)=>handleOnchange(e)} disabled={!isEditing} />
+                   <input type="text" value={user?.given_name || ''} name='firstName' onChange={(e)=>handleOnchange(e)} disabled={!isEditing} />
                 </div>
                 <div>
                     <label>Email</label>
-                    <input type="email" value={user.email || ''} name='email' onChange={(e)=>handleOnchange(e)} disabled={!isEditing} />
+                    <input type="email" value={user?.email || ''} name='email' onChange={(e)=>handleOnchange(e)} disabled={!isEditing} />
                 </div>
                 <div>
                     <label>Phone</label>
-                    <input type="text" value={user.phone || ''} name='phone' onChange={(e)=>handleOnchange(e)} disabled={!isEditing} />
+                    <input type="text" value={user?.phone || ''} name='phone' onChange={(e)=>handleOnchange(e)} disabled={!isEditing} />
                 </div>
                 <div>
                     <label>Address</label>
-                    <input type="text" value={user.address || ''} name='address' onChange={(e)=>handleOnchange(e)} disabled={!isEditing} />
+                    <input type="text" value={user?.address || ''} name='address' onChange={(e)=>handleOnchange(e)} disabled={!isEditing} />
                 </div>
             </div>
         </div>

@@ -12,13 +12,13 @@ export const cartreducer = (state = INIT_STATE, action) => {
 
       if (ItemIndex >= 0) {
         const updatedCart = state.carts.map((item, index) =>
-          index === ItemIndex
+          index === ItemIndex 
             ? { ...item, qnty: item.qnty + 1 }
             : item
         );
 
         return {
-          ...state,
+          ...state, 
           carts: updatedCart
         };
       } else {

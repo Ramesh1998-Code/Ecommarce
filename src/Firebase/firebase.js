@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getDatabase } from "firebase/database";
+ const keys = process.env.REACT_APP_FIREBASE_API_KEY
 const firebaseConfig = {
-  apiKey: "AIzaSyBGyMnVnetm5ghVyaILGZm9W8V9t1E1Eys",
+  apiKey: keys,
   authDomain: "webtool-2efd8.firebaseapp.com",
   projectId: "webtool-2efd8",
   storageBucket: "webtool-2efd8.firebasestorage.app",

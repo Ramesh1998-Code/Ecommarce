@@ -17,6 +17,7 @@ import Login from './Components/Login/index.js';
 import MyAccount from './Components/MyAccount/index.js';
 import Vendor from './Components/Vendor/index.js';
 
+
 function App() {
   return (
     <div className="App">
@@ -37,8 +38,8 @@ function App() {
        <Route path="/login" element={<Login />} />
        <Route path="/myaccount" element={<MyAccount />} />
        <Route path="/vendor" element={<Vendor />} />
-     </Routes>
-      
+        
+     </Routes>    
     </div>
   );
 }

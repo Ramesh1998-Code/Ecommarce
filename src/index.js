@@ -8,6 +8,7 @@ import { store } from './store.js';
 import {Provider}  from 'react-redux';
 import { StrictMode } from "react";
 import { Auth0Provider } from "@auth0/auth0-react";
+import GeminiChat from './Components/GimiChat/index.js';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <StrictMode>
@@ -23,6 +24,7 @@ root.render(
     <BrowserRouter>
      <React.StrictMode>
     <App />
+    <GeminiChat />
   </React.StrictMode>
   </BrowserRouter>
   </Provider>

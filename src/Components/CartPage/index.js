@@ -6,6 +6,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import DeliverySlotBooking from '../Slots';
 import ProductCard from '../Share';
 import LocationPicker from '../Loctions';
+import LiveTrackingMap from '../LiveTrackingMap';
+import DeliveryPartnerControls from '../DeliveryPartnerControls';
 const stripePromise = loadStripe("pk_test_51SzY7811MKIvxiNzwhKMUsrTZ27ppiqsa5FoIxlH3NNS4WDy49UzsZ9NEx3wntA98uwsjNB7GqhAcJyMZw63tyZ000uH3tmpOl"); 
 function CartPage() {
      const [location, setLocation] = useState("");
@@ -223,6 +225,8 @@ function CartPage() {
     </div>
   </div>
 </section>
+       <DeliveryPartnerControls orderId="order_123" />
+      <LiveTrackingMap orderId="order_123" />
 
     </div>
   )

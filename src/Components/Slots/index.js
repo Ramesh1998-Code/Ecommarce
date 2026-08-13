@@ -39,7 +39,7 @@ const confirmDate =
   confirm && typeof confirm === "string"
     ? parseInt(confirm.split(", ")[1].split(" ")[0])
     : null;
-  console.log(confirmDate,"confirmDate");
+
   
   
   const isToday = offset === 0;

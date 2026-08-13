@@ -46,7 +46,8 @@ console.log("user>>>>",user);
         <h2 className='text-center'>My Account</h2>
         <div class="account-container">
     <div class="account-header">
-        <img  src={user?.picture} alt="Profile Picture" />
+        <img   onLoad={() => console.log("Image Loaded")}
+           onError={() => console.log("Image Failed")}  src={user?.picture} alt="Profile Picture" />
         
         <h2>{user?.firstName} {user?.lastName}</h2>
         <p className='text-white'>{user?.email}</p>

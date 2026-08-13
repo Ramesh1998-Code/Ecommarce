@@ -11,7 +11,7 @@ function Crousel({
 }) {
 
  
-    var settings = {
+    var Defaultsettings = {
     dots: true,
     infinite: true,
     speed: 500,
@@ -23,7 +23,7 @@ function Crousel({
   return (
     <div>
         <h3>{title}</h3>
-        <Slider {...settings}>
+        <Slider {...Defaultsettings}>
         {
             data.map((item,index)=> (
                 <div>

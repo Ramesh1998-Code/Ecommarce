@@ -10,8 +10,7 @@ function MyAccount() {
 //     phone:"+1 234 567 890",
 //     address:"123 Main Street, City, Country"
 // })
-const { loginWithRedirect, logout, isAuthenticated, isLoading, user, error } = useAuth0();
-console.log("user>>>>",user);
+const { user } = useAuth0();
 
      const [isEditing,setIsEditing] = useState(false);
      const notify = () => toast("Profile update Successfully", {
@@ -31,11 +30,7 @@ console.log("user>>>>",user);
 
  const handleOnchange = (e)=> {
     if(!isEditing) return;
-    const { name,value} = e.target;
-    // user(prev=>({
-    //     ...prev,
-    //     [name]:value
-    // }))
+   
  }
 
   

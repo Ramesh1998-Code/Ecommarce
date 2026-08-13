@@ -1,5 +1,5 @@
 
-import react, { useEffect } from 'react'
+import  { useEffect } from 'react'
 import { Button } from 'react-bootstrap'
 
 function Vendor() { 

@@ -11,9 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 import { DLT } from '../../redux/action/action';
 import TopHeader from '../TopHeader/index.js';
-import AuthButtons from '../Auth/AuthButtons.jsx';
 import { useAuth0 } from "@auth0/auth0-react";
-import Login from '../Login/index.js';
+
 function Header() {
     const getdata = useSelector((state)=> state.cartreducer.carts);
     const[price,setPrice] = useState(0)
@@ -59,9 +58,9 @@ function Header() {
   },[total])
 
 
-  const loginuser =  localStorage.getItem("access_token");
 
-  const { loginWithRedirect, logout, isAuthenticated, isLoading, user, error } = useAuth0();
+
+  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
 
  
 

@@ -301,7 +301,6 @@ export default function ProductCard({ product,productUrl,desc,title,prices }) {
   const {
     name = title,
     price = prices,
-    image = null,
     url = productUrl,
     description = desc,
   } = product || {};

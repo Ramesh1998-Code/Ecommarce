@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import google from "../image/google.png";
 import apple from "../image/apple.png";
 import { useNavigate } from 'react-router-dom';
@@ -29,10 +29,6 @@ function Login() {
   };
   
 
-  const handleLogout = async () => {
-    await signOut(auth);
-    setUser(null);
-  };
 
   return (
     <div className='login-wrap'>

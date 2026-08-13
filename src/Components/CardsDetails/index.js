@@ -11,7 +11,7 @@ function CardDetails() {
     const dispatch = useDispatch();
     const compare = () => {
         let comparedata = getdata?.filter((item) => {
-            return item.id == id
+            return item.id ===id
         });
         setData(comparedata);
     }

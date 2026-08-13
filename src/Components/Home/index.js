@@ -1,8 +1,6 @@
 
 import React, { useEffect } from 'react'
 import TopNews from '../TopNews'
-import Crousel from '../Crousel';
-import NewsCategory from '../NewsCategory';
 import Cards from '../Card';
 
 function Home() {

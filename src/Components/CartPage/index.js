@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD, ADD_whisList, DLT, REMOVE } from '../../redux/action/action';
-import { useNavigate, useParams } from 'react-router-dom';
 import { loadStripe } from "@stripe/stripe-js";
 import DeliverySlotBooking from '../Slots';
 import ProductCard from '../Share';
 import LocationPicker from '../Loctions';
 import LiveTrackingMap from '../LiveTrackingMap';
 import DeliveryPartnerControls from '../DeliveryPartnerControls';
-const stripePromise = loadStripe("pk_test_51SzY7811MKIvxiNzwhKMUsrTZ27ppiqsa5FoIxlH3NNS4WDy49UzsZ9NEx3wntA98uwsjNB7GqhAcJyMZw63tyZ000uH3tmpOl"); 
+// const stripePromise = loadStripe("pk_test_51SzY7811MKIvxiNzwhKMUsrTZ27ppiqsa5FoIxlH3NNS4WDy49UzsZ9NEx3wntA98uwsjNB7GqhAcJyMZw63tyZ000uH3tmpOl"); 
 function CartPage() {
      const [location, setLocation] = useState("");
     const isInWishList = (id) => {

@@ -1,18 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import html2canvas from "html2canvas";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import CardsData from "../CardData"
 import { useDispatch, useSelector } from "react-redux";
 import { ADD, ADD_whisList } from '../../redux/action/action';
-import NavLink from "react-bootstrap/esm/NavLink";
 import Badge from '@mui/material/Badge';
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
-import { BarcodeGeneratorComponent } from '@syncfusion/ej2-react-barcode-generator';
-import Barcode from "react-barcode";
 import Loader from "react-js-loader";
 import ReactPaginate from "react-paginate";
+import Barcode from "react-barcode";
 function Cards({ product = [] }) {
   const notify = () => toast("Product added to cart!", {
     theme: "dark",
@@ -72,33 +68,12 @@ function Cards({ product = [] }) {
   })
 
 
-  const componentRef = useRef(null);
-
-  // const takeScreenshot = () => {
-  //     html2canvas(componentRef.current).then((canvas) => {
-  //         const image = canvas.toDataURL("image/png");
-  //         const link = document.createElement("a");
-  //         link.href = image;
-  //         link.download = "components-screenshot.png";
-  //         link.click();
-  //     });
-  // };
-
   const dispatch = useDispatch();
 
   const send = (item) => {
     dispatch(ADD(item));
     notify();
   }
-
-  const newTab = (item) => {
-    window.open(`/cart/${item.id}`, '_blank');
-  }
-
-  // const [wishList, setWishList] = useState([]);
-  const [isWishListOpen, setIsWishListOpen] = useState(false);
-
-
 
   const isInWishList = (id) => {
     return wishList?.some((item) => item.id === id);

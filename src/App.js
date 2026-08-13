@@ -1,7 +1,5 @@
-import logo from './logo.svg';
+
 import './App.css';
-import Pdf from './Pdf';
-import Table from './Components/Table';
 import Header from './Components/Header.js';
 import { Routes,Route } from 'react-router-dom';
 import CardDetails from './Components/CardsDetails';
@@ -21,9 +19,6 @@ import Vendor from './Components/Vendor/index.js';
 function App() {
   return (
     <div className="App">
-     {/* <Pdf />
-     <Card /> */}
-     {/* <Table /> */}
      <Header />
      <Routes>
       <Route path='/card' element={<Card />} />

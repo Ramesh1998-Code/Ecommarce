@@ -1,7 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 import { useState } from "react";
  const keys = process.env.REACT_APP_GEMINI_API_KEY
-console.log("keys>>",keys);
+
 
 const ai = new GoogleGenAI({
   apiKey: keys

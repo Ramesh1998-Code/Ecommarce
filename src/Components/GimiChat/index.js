@@ -1,7 +1,12 @@
 import { GoogleGenAI } from "@google/genai";
 import { useState } from "react";
+ const keys = process.env.REACT_APP_GEMINI_API_KEY
+console.log("keys>>",keys);
 
-const ai = new GoogleGenAI({ apiKey: "AQ.Ab8RN6KJMfDc03nXOC0r1hqRFyJ57ViPcAZrqM-sHlZdQSTi4w" });
+const ai = new GoogleGenAI({
+  apiKey: keys
+});
+
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);

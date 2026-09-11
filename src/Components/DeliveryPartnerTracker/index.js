@@ -13,7 +13,7 @@ export function startTracking(orderId) {
 
   watchId = navigator.geolocation.watchPosition(
     (position) => {
-      // Throttle writes to every 3 seconds to avoid spamming Firebase
+    
       const now = Date.now();
       if (now - lastUpdate < 3000) return;
       lastUpdate = now;
@@ -29,7 +29,7 @@ export function startTracking(orderId) {
       });
     },
     (err) => console.error("GPS error:", err),
-    { enableHighAccuracy: true, maximumAge: 0, timeout: 10000 }
+    { enableHighAccuracy: true, maximumAge: 0, timeout: 20000 }
   );
 }
 

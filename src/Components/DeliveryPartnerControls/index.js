@@ -8,10 +8,10 @@ export default function DeliveryPartnerControls({ orderId }) {
 
   return (
     <div>
-      <button onClick={() => startTracking(orderId)}>
+      <button className="btn btn-primary" onClick={() => startTracking(orderId)}>
         Start sharing my location
       </button>
-      <button onClick={() => stopTracking()}>
+      <button  className="btn btn-primary" onClick={() => stopTracking()}>
         Stop sharing
       </button>
     </div>

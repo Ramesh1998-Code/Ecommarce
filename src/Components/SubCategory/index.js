@@ -1,87 +1,70 @@
-import React, { use, useEffect, useState } from 'react'
-import {  Button, Card } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
-import  { ADD } from '../../redux/action/action';
-import Badge from '@mui/material/Badge';
-function SubCategory() {
-   const { slug } = useParams();
-   const [products,setProducts] =  useState([]);
-   const [loading,setLoading] = useState(false);
+import React, { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import Cards from '../Card';
+import Loader from "react-js-loader";
+import Footer from '../Footer';
 
-   useEffect(()=>{
+function SubCategory() {
+  const { slug } = useParams();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
     fetch(`https://dummyjson.com/products/category/${slug}`)
       .then(res => res.json())
       .then(data => {
-        setProducts(data.products);
+        setProducts(data.products || []);
         setLoading(false);
       })
       .catch(err => {
         console.error(err);
         setLoading(false);
       });
-   },[slug])
-       const dispatch = useDispatch();
+  }, [slug]);
 
-       const send = (item)=>{
-   
-         dispatch(ADD(item)); 
-       }
-
-
-        const getdata = useSelector((state)=> state.cartreducer.carts);
-
-       const isInCart = (id=> {
-         return getdata.some((item)=> item.id === id);
-       })
-
-  if (loading) return <p>Loading...</p>;
   return (
-    <div>
-          <div className="container">
-      <h2 className="mb-4 mt-4 text-capitalize">{slug}</h2>
+    <div className="subcategory-page-wrapper bg-slate-50 min-vh-100 py-4">
+      <div className="container">
+        {/* Category Header Bar (d-flex flex-wrap gap-3 align-items-center mb-4) */}
+        <div className="d-flex flex-wrap gap-3 align-items-center justify-content-between mb-4 p-4 rounded-4 bg-white shadow-sm border">
+          <div className="d-flex align-items-center gap-3">
+            <div className="p-3 bg-indigo-subtle rounded-3 text-indigo">
+              <i className="fa-solid fa-tags fs-4"></i>
+            </div>
+            <div>
+              <nav aria-label="breadcrumb">
+                <ol className="breadcrumb m-0 small">
+                  <li className="breadcrumb-item"><Link to="/" className="text-secondary text-decoration-none">Home</Link></li>
+                  <li className="breadcrumb-item"><Link to="/category" className="text-secondary text-decoration-none">Categories</Link></li>
+                  <li className="breadcrumb-item active text-indigo fw-semibold text-capitalize" aria-current="page">{slug}</li>
+                </ol>
+              </nav>
+              <h2 className="fw-bold text-dark m-0 text-capitalize">{slug} Collection</h2>
+            </div>
+          </div>
 
-      <div className="row mt-4">
-        {
-          products.map(item => (
-             
-              <>
-                  
-                 <Card style={{ width: '18rem',marginRight:10,marginBottom:10 }}>
-                    <Badge  badgeContent={item.availabilityStatus} color={item.availabilityStatus === "In Stock" ? "success" : "error"}>
-                    <i  id="basic-button"
-                  
-                    aria-haspopup="true"
-                   className="fa-sharp fa-solid fa-cart-shopping text-light" style={{fontSize: 25,cursor:"pointer"}}></i>
-                </Badge>
-                    <Card.Img variant="top" src={item.images} />
-                  <Card.Body>
-                    <Card.Title>{item?.title}</Card.Title>
-                    <Card.Text>
-                      <label>Price: ₹{item?.price}</label>
-                      <br/>
-                      <label>{item?.address}</label>
-                    </Card.Text>
+          <div className="d-flex align-items-center gap-2">
+            <span className="badge bg-indigo-subtle text-indigo rounded-pill px-3 py-2 fw-semibold fs-6">
+              {products.length} Products Available
+            </span>
+          </div>
+        </div>
 
-                     {
-                        isInCart(item.id) ? (
-                            <Button disabled>Added to Cart</Button>
-                        ) : (
-                            <Button onClick={() => send(item)}>Add to Cart</Button>
-                        )
-                        }
-                    {/* <Button onClick={()=>send(item)}  variant="primary">Add to Cart</Button> */}
-                  </Card.Body>
-                   
-                 
-                </Card>         
-                </>
-          ))
-        }
+        {/* Loading Spinner */}
+        {loading ? (
+          <div className="text-center py-5">
+            <Loader type="spinner-default" bgColor={"#6366f1"} color={"#ffffff"} size={80} />
+            <p className="text-muted mt-3 fw-medium">Loading category products...</p>
+          </div>
+        ) : (
+          <Cards product={products} />
+        )}
       </div>
+
+      <Footer />
     </div>
-    </div>
-  )
+  );
 }
 
-export default SubCategory
+export default SubCategory;

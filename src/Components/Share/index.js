@@ -254,7 +254,7 @@ export function ProductShareButton({ productUrl, productText, onShared }) {
     onShared?.();
   }
 
-  console.log("productUrl>>>",productUrl);
+
   
 
   return (

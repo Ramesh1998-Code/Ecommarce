@@ -1,57 +1,59 @@
-import React from 'react'
-import { Card } from 'react-bootstrap';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
- 
-function WishList() {
-    const wishList  = useSelector((state)=> state.cartreducer.wishlist);
-  return (
-    <div>
-        <div className="container">
-        <h2 className="text-center mb-4 mt-4 pb-5 ">Wishlist Page</h2>
-         <div className="row"> 
-          {
-            wishList?.map((item,id)=>{
-              
-              return (
-                <>
-                  
-                 <Card key= {id} style={{ width: '18rem',marginRight:10,marginBottom:10 }}>
-                 <div className="d-flex align-items-center justify-content-between">
-                   {/* <i  id="basic-button"
-                     onClick={()=>handleWishList(item)}
-                    aria-haspopup="true"
-                   className={`${isInWishList(item.id) ? "text-danger" : "text-dark"} fa-sharp fa-solid fa-heart`} style={{fontSize: 25,cursor:"pointer"}}></i>
-                   <Badge  badgeContent={item.availabilityStatus} color={item.availabilityStatus === "In Stock" ? "success" : "error"}>
-                    
-                </Badge> */}
-                  
-                 </div>
-                    <div className="card-image-wrap">
-                      <Card.Img variant="top" src={item.images} />
-                    </div>
-                  <Card.Body>
-                    <Card.Title> <li key={item.id}><Link className="underline-none" to={`/cart/${item.id}`}>{item.title}</Link></li></Card.Title>
-                    <Card.Text>
-                      <label>Price: ₹{item?.price}</label>
-                      <br/>
-                      <label>{item?.address}</label>
-                    </Card.Text>
+import Cards from '../Card';
+import Footer from '../Footer';
 
-                    
-                    {/* <Button onClick={()=>send(item)}  variant="primary">Add to Cart</Button> */}
-                  </Card.Body>
-                   
-                 
-                </Card>         
-                </>
-              )
-            })
-          }
+function WishList() {
+  const wishList = useSelector((state) => state.cartreducer.wishlist);
+
+  return (
+    <div className="wishlist-page-wrapper bg-slate-50 min-vh-100 py-4">
+      <div className="container">
+        {/* Wishlist Header Bar (d-flex flex-wrap gap-3 align-items-center mb-4) */}
+        <div className="d-flex flex-wrap gap-3 align-items-center justify-content-between mb-4 p-4 rounded-4 bg-white shadow-sm border">
+          <div className="d-flex align-items-center gap-3">
+            <div className="p-3 bg-rose-100 rounded-3 text-rose">
+              <i className="fa-solid fa-heart text-danger fs-4"></i>
+            </div>
+            <div>
+              <nav aria-label="breadcrumb">
+                <ol className="breadcrumb m-0 small">
+                  <li className="breadcrumb-item"><Link to="/" className="text-secondary text-decoration-none">Home</Link></li>
+                  <li className="breadcrumb-item active text-danger fw-semibold" aria-current="page">Wishlist</li>
+                </ol>
+              </nav>
+              <h2 className="fw-bold text-dark m-0">My Saved Wishlist</h2>
+            </div>
+          </div>
+
+          <div className="d-flex align-items-center gap-2">
+            <span className="badge bg-danger-subtle text-danger rounded-pill px-3 py-2 fw-semibold fs-6">
+              {wishList?.length || 0} Saved Items
+            </span>
+          </div>
         </div>
+
+        {/* Empty Wishlist Placeholder */}
+        {!wishList || wishList.length === 0 ? (
+          <div className="text-center py-5 bg-white rounded-4 border p-5 shadow-sm my-4">
+            <div className="mb-3">
+              <i className="fa-regular fa-heart text-muted display-3"></i>
+            </div>
+            <h4 className="fw-bold text-dark">Your Wishlist is Empty</h4>
+            <p className="text-secondary small mb-4">Explore our trending items and click the heart icon to save products for later.</p>
+            <Link to="/" className="btn btn-indigo rounded-pill px-4 py-2 fw-semibold">
+              <i className="fa-solid fa-bag-shopping me-2"></i> Start Shopping
+            </Link>
+          </div>
+        ) : (
+          <Cards product={wishList} />
+        )}
       </div>
+
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default WishList
+export default WishList;
